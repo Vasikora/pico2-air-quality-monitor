@@ -7,19 +7,19 @@ The project uses a state-machine design with visual and audible feedback through
 ## Demo Photos
 
 ### Full Prototype
-![Project overview](docs/project-overview.jpg)
+<img width="240" height="320" alt="project-overview" src="https://github.com/user-attachments/assets/c758cead-91a7-493e-824f-16580b937b0e" />
 
 ### Wiring Diagram
-![Wiring diagram](docs/wiring-diagram.png)
+<img width="820" height="615" alt="Wiring_diagram" src="https://github.com/user-attachments/assets/f6dd3570-4726-43ec-8731-835ccbb6ee2d" />
 
 ### State Machine
-![State machine](docs/state-machine.png)
+<img width="598" height="962" alt="state_machine" src="https://github.com/user-attachments/assets/8ff002b1-8ac9-4804-86f2-3552f6361ccc" />
 
 ### Normal State
-![Normal state](docs/normal-state.jpg)
+<img width="240" height="320" alt="normal-state" src="https://github.com/user-attachments/assets/39370c92-eec7-42c2-a8e6-ce0d750fa8ca" />
 
 ### Alert State
-![Alert state](docs/alert-state.jpg)
+<img width="240" height="320" alt="alert-state" src="https://github.com/user-attachments/assets/ea8e5716-e52f-4229-8ae9-9bc01025b1aa" />
 
 ## Features
 
@@ -126,20 +126,7 @@ Some of the main debugging challenges included:
 - Baseline calibration
 - Embedded debugging
 - Hardware prototyping
-
-## Demo Photos
-
-### Full Prototype
-<img width="240" height="320" alt="project-overview" src="https://github.com/user-attachments/assets/c758cead-91a7-493e-824f-16580b937b0e" />
-
-### Wiring Diagram
-<img width="820" height="615" alt="Wiring_diagram" src="https://github.com/user-attachments/assets/f6dd3570-4726-43ec-8731-835ccbb6ee2d" />
-
-### State Machine
-<img width="598" height="962" alt="state_machine" src="https://github.com/user-attachments/assets/8ff002b1-8ac9-4804-86f2-3552f6361ccc" />
-
-### Normal State
-<img width="240" height="320" alt="normal-state" src="https://github.com/user-attachments/assets/39370c92-eec7-42c2-a8e6-ce0d750fa8ca" />
+  
 
 ### Alert State
 <img width="240" height="320" alt="alert-state" src="https://github.com/user-attachments/assets/ea8e5716-e52f-4229-8ae9-9bc01025b1aa" />
