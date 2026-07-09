@@ -16,10 +16,10 @@ The project uses a state-machine design with visual and audible feedback through
 <img width="598" height="962" alt="state_machine" src="https://github.com/user-attachments/assets/8ff002b1-8ac9-4804-86f2-3552f6361ccc" />
 
 ### Normal State
-<img width="320" height="240" alt="normal-state" src="https://github.com/user-attachments/assets/666656e4-49c3-4216-bc97-4111c5afbb28" />
+<img width="5712" height="4284" alt="normal-state" src="https://github.com/user-attachments/assets/c4bd4407-930f-48d0-996d-fdcefd7a3097" />
 
 ### Alert State
-<img width="320" height="240" alt="alert-state" src="https://github.com/user-attachments/assets/42fae83d-2762-468b-82c1-bcbd0617b3df" />
+<img width="5712" height="4284" alt="alert-state" src="https://github.com/user-attachments/assets/def6fcc8-3225-4683-9ef8-bf96a97ebebc" />
 
 ## Features
 
