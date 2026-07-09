@@ -7,7 +7,7 @@ The project uses a state-machine design with visual and audible feedback through
 ## Demo Photos
 
 ### Full Prototype
-<img width="240" height="320" alt="project-overview" src="https://github.com/user-attachments/assets/c758cead-91a7-493e-824f-16580b937b0e" />
+<img width="320" height="240" alt="project-overview" src="https://github.com/user-attachments/assets/d057e4a6-e7a5-4fd7-8f56-00f5ff7f2b99" />
 
 ### Wiring Diagram
 <img width="820" height="615" alt="Wiring_diagram" src="https://github.com/user-attachments/assets/f6dd3570-4726-43ec-8731-835ccbb6ee2d" />
@@ -16,10 +16,10 @@ The project uses a state-machine design with visual and audible feedback through
 <img width="598" height="962" alt="state_machine" src="https://github.com/user-attachments/assets/8ff002b1-8ac9-4804-86f2-3552f6361ccc" />
 
 ### Normal State
-<img width="240" height="320" alt="normal-state" src="https://github.com/user-attachments/assets/39370c92-eec7-42c2-a8e6-ce0d750fa8ca" />
+<img width="320" height="240" alt="normal-state" src="https://github.com/user-attachments/assets/666656e4-49c3-4216-bc97-4111c5afbb28" />
 
 ### Alert State
-<img width="240" height="320" alt="alert-state" src="https://github.com/user-attachments/assets/ea8e5716-e52f-4229-8ae9-9bc01025b1aa" />
+<img width="320" height="240" alt="alert-state" src="https://github.com/user-attachments/assets/42fae83d-2762-468b-82c1-bcbd0617b3df" />
 
 ## Features
 
