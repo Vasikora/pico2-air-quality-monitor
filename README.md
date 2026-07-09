@@ -126,8 +126,3 @@ Some of the main debugging challenges included:
 - Baseline calibration
 - Embedded debugging
 - Hardware prototyping
-  
-
-### Alert State
-<img width="240" height="320" alt="alert-state" src="https://github.com/user-attachments/assets/ea8e5716-e52f-4229-8ae9-9bc01025b1aa" />
-
