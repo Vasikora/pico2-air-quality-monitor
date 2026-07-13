@@ -1,0 +1,73 @@
+@startuml
+!pragma layout smetana
+title Air Quality Monitor - Simplified State Machine
+
+skinparam backgroundColor #FBFCFE
+skinparam shadowing false
+skinparam roundcorner 18
+skinparam defaultFontName Arial
+skinparam defaultFontColor #172033
+skinparam ArrowColor #475569
+skinparam ArrowThickness 1.7
+skinparam state {
+  BackgroundColor #FFFFFF
+  BorderColor #64748B
+  FontColor #172033
+  StartColor #2563EB
+  EndColor #2563EB
+}
+skinparam note {
+  BackgroundColor #FFFCE8
+  BorderColor #A16207
+}
+
+hide empty description
+
+state "CALIBRATING" as Calibrating #FEF3C7
+Calibrating : Learn the normal air baseline
+Calibrating : Yellow LED
+
+state "NORMAL" as Normal #DCFCE7
+Normal : Air is close to the baseline
+Normal : Green LED
+
+state "SPIKE DETECTED" as Spike #FEF3C7
+Spike : A noticeable change was detected
+Spike : Yellow LED
+
+state "ALERT" as Alert #FECACA
+Alert : A large change was detected
+Alert : Red LED + warning beeps
+
+state "RECOVERY" as Recovery #E0F2FE
+Recovery : Air is returning to normal
+Recovery : Green + yellow LEDs
+
+state "ERROR" as Error #FECACA
+Error : Sensor cannot be read
+Error : Can interrupt any monitoring state
+Error : Red LED; automatic retry
+
+[*] --> Calibrating
+Calibrating --> Normal : baseline ready
+Normal --> Spike : noticeable change
+Normal --> Alert : large change
+Spike --> Alert : change becomes stronger
+Spike --> Recovery : readings settle
+Alert --> Recovery : readings settle
+Recovery --> Normal : stable for 5 seconds
+Recovery --> Spike : readings become unstable again
+
+Normal --> Error : sensor problem
+Error --> Normal : reading succeeds
+
+note left of Calibrating
+  Hold the button for one second
+  at any time to recalibrate.
+end note
+
+legend bottom
+  Live humidity and gas resistance are compared with the calibrated baseline while the OLED shows the current state and measurements.
+endlegend
+
+@enduml

@@ -1,0 +1,138 @@
+@startuml
+!pragma layout smetana
+title Raspberry Pi Pico 2 Air Quality Monitor - Runtime Control Flow
+
+skinparam backgroundColor #FBFCFE
+skinparam shadowing false
+skinparam roundcorner 14
+skinparam defaultFontName Arial
+skinparam defaultFontColor #172033
+skinparam ArrowColor #475569
+skinparam ArrowThickness 1.4
+skinparam activity {
+  BackgroundColor #FFFFFF
+  BorderColor #64748B
+  FontColor #172033
+  DiamondBackgroundColor #EFF6FF
+  DiamondBorderColor #2563EB
+  StartColor #2563EB
+  EndColor #2563EB
+  BarColor #475569
+}
+skinparam partition {
+  BackgroundColor #F8FAFC
+  BorderColor #94A3B8
+  FontColor #172033
+}
+skinparam note {
+  BackgroundColor #FFFCE8
+  BorderColor #A16207
+}
+
+start
+
+partition "STARTUP AND BASELINE CALIBRATION" {
+  :Initialize GPIO outputs;
+  :Open BME688 on I2C0\nGP16 SDA / GP17 SCL;
+  :Scan for SSD1306 at 0x3C on SoftI2C\nGP18 SDA / GP19 SCL;
+
+  if (OLED found?) then (yes)
+    :Create the 128 x 64 OLED display;
+  else (no)
+    :STARTUP FAILED\nRaise RuntimeError; <<#FECACA>>
+    stop
+  endif
+
+  :CALIBRATING\nYellow LED on; buzzer off; <<#FEF3C7>>
+  :Collect 15 sensor readings\nat one-second intervals;
+  :Average valid gas and humidity values\nto create the baseline;
+}
+
+partition "LIVE MONITORING LOOP" {
+  while (monitoring active?) is (yes)
+
+    if (GP5 button held for at least 1 second?) then (yes)
+      :RECALIBRATING\nYellow LED on; buzzer off; <<#FEF3C7>>
+      :Collect 15 fresh samples and replace\nthe gas and humidity baselines;
+      :Set state to NORMAL; reset recovery\nand alert-beep timers;
+    endif
+
+    :Read temperature, humidity, pressure,\nand gas resistance from the BME688;
+
+    if (sensor read succeeds?) then (yes)
+      :Calculate absolute gas and humidity\npercent changes from the baseline;
+
+      if (gas change >= 20% OR\nhumidity change >= 12%?) then (strong)
+        :Set state to ALERT; <<#FECACA>>
+
+      elseif (gas change >= 8% OR\nhumidity change >= 5%?) then (moderate)
+        :Set state to SPIKE_DETECTED; <<#FEF3C7>>
+
+      elseif (current state is ALERT,\nSPIKE_DETECTED, or RECOVERY?) then (yes)
+
+        if (gas change < 5% AND\nhumidity change < 3%?) then (stable)
+          :Start or continue the recovery timer;
+
+          if (stable continuously for 5 seconds?) then (yes)
+            :Set state to NORMAL;\nClear recovery timer; <<#DCFCE7>>
+          else (not yet)
+            :Set state to RECOVERY; <<#E0F2FE>>
+          endif
+
+        else (not stable)
+          :Set state to SPIKE_DETECTED;\nClear recovery timer; <<#FEF3C7>>
+        endif
+
+      else (below warning)
+        :Set state to NORMAL; <<#DCFCE7>>
+      endif
+
+      if (state changed?) then (yes)
+        :Apply state outputs;
+        note right
+          NORMAL: green LED
+          SPIKE_DETECTED: yellow LED
+          ALERT: red LED + two short beeps
+          RECOVERY: green + yellow LEDs
+          ERROR: red LED; buzzer off
+        end note
+      endif
+
+      if (state is ALERT and 3 seconds\nelapsed since the last beep?) then (yes)
+        :Play two short alert beeps;
+      endif
+
+      :Refresh OLED with state, temperature,\nhumidity, and maximum percent change;
+      note right
+        An OLED write OSError is logged;
+        monitoring continues.
+      end note
+      :Print all readings and changes\nto the serial console;
+      :Wait until the one-second\nsample interval completes;
+
+    else (OSError)
+      :Set state to ERROR;\nRed LED on; buzzer off; <<#FECACA>>
+      :Show "Sensor failure / Retrying"\non the OLED when possible;
+      :Wait 1 second, then retry;
+    endif
+
+  endwhile (KeyboardInterrupt)
+}
+
+partition "SAFE SHUTDOWN" {
+  :Turn off all LEDs and the buzzer;
+  :Clear the OLED when possible;
+}
+
+stop
+
+legend bottom
+  |= Decision level |= Gas change |= Humidity change |= Result |
+  | Alert | >= 20% | >= 12% | ALERT takes precedence |
+  | Warning | >= 8% | >= 5% | SPIKE_DETECTED |
+  | Stable recovery | < 5% | < 3% | RECOVERY, then NORMAL after 5 s |
+
+  Temperature and pressure are displayed and logged, but do not drive state changes.
+endlegend
+
+@enduml

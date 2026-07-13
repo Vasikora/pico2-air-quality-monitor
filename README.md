@@ -13,7 +13,16 @@ The project uses a state-machine design with visual and audible feedback through
 <img width="820" height="615" alt="Wiring_diagram" src="https://github.com/user-attachments/assets/f6dd3570-4726-43ec-8731-835ccbb6ee2d" />
 
 ### State Machine
-<img width="598" height="962" alt="state_machine" src="https://github.com/user-attachments/assets/8ff002b1-8ac9-4804-86f2-3552f6361ccc" />
+
+The runtime flow below is generated from the checked-in [PlantUML source](docs%3A/state_machine.puml). It reflects the implemented threshold precedence, hysteresis, timed recovery, manual recalibration, sensor retry, and shutdown behavior.
+
+![Air quality monitor runtime state machine](docs%3A/state_machine.png)
+
+#### Simplified State Machine
+
+This audience-friendly view summarizes the main system states and transitions. Its editable source is available in [PlantUML format](docs%3A/state_machine_simple.puml).
+
+![Simplified air quality monitor state machine](docs%3A/state_machine_simple.png)
 
 ### Normal State
 <img width="5712" height="4284" alt="normal-state" src="https://github.com/user-attachments/assets/c4bd4407-930f-48d0-996d-fdcefd7a3097" />
